@@ -1,3 +1,12 @@
+<!--
+Author: Ian Penrose
+Program: Bloc Web Developer course
+Created on: 12/27/2019
+Last updated: 12/30/2019
+Description: This webpage is a quiz app containing questions about world geography. The user is asked 5 questions and given feedback on their score
+throughout the quiz. At the end, the user is prompted to retry the quiz.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,26 +19,27 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <header class="quiz-header">
-        <h1>Geography Quiz</h1>
-        <div class="results js-results hidden"><div>
-    </header>
+    <div class="background">
+        <header class="quiz-header">
+            <h1>Geography Quiz</h1>
+            <div class="results js-results hidden"><div>
+        </header>
 
-    <main>
-        <form class="intro-form js-intro-form hidden">
-            <legend>This quiz consists of 5 geography questions. Good luck!</legend>
-            <fieldset class="intro-fieldset js-intro-fieldset">
-                <button class="start-button js-start-button">
-                    <span class="button-label">Start</span>
-                </button>
-            </fieldset>
-        </form>
+        <main>
+            <form class="intro-form js-intro-form hidden">
+                <legend>This quiz consists of 5 geography questions. Good luck!</legend>
+                <fieldset class="intro-fieldset js-intro-fieldset">
+                    <button class="start-button js-start-button">
+                        <span class="button-label">Start</span>
+                    </button>
+                </fieldset>
+            </form>
 
-        <form class="question-form js-question-form hidden"></form>
+            <form class="question-form js-question-form hidden"></form>
 
-        <div class="outro-form js-outro-form hidden"></div>
-    </main>
-
+            <div class="outro-form js-outro-form hidden"></div>
+        </main>
+    </div>
     <script
     src="https://code.jquery.com/jquery-3.2.1.min.js"
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

@@ -1,69 +1,68 @@
-const QUIZ = [
+//Contains all of the questions in the quiz. id is the question number.
+const QUIZ = [ 
     {id: 1, 
         question: "1) What is the capital of Portugal?", 
         answerA: "Madrid", 
         answerB: "Lisbon", 
         answerC: "Gibraltar", 
         answerD: "Mozambique", 
-        trueAnswer: "b",
-        picture: "C:\Users\Ian\projects\quiz_app\images\Lisbon.jpeg",
-        pictureAlt: "Landscape of a city whose building are white with bronze tiles for the roofs."},
+        trueAnswer: "b"},
     {id: 2, 
         question: "2) Which continent is Greenland a part of?", 
         answerA: "Africa", 
         answerB: "Europe", 
         answerC: "Australia", 
         answerD: "North America", 
-        trueAnswer: "d",
-        picture: "C:\Users\Ian\projects\quiz_app\images\Greenland.jpeg",
-        pictureAlt: "A city with colorful houses on the edge of a sea, snow covered mountains are in the background."},
+        trueAnswer: "d"},
     {id: 3, 
         question: "3) What is the largest country in the world (in terms of landmass)?", 
         answerA: "United States of America", 
         answerB: "Canada", 
         answerC: "Russia", 
         answerD: "Australia", 
-        trueAnswer: "c",
-        picture: "C:\Users\Ian\projects\quiz_app\images\Russia.png",
-        pictureAlt: "People walking in front of a massive, colorful building with many towers, whose tips are curved and sloped."},
+        trueAnswer: "c"},
     {id: 4, 
         question: "4) Which of the following is NOT a continent?", 
         answerA: "Antarctica", 
         answerB: "Australia", 
         answerC: "Middle East", 
         answerD: "South America", 
-        trueAnswer: "c",
-        picture: "C:\Users\Ian\projects\quiz_app\images\Antarctica.jpg",
-        pictureAlt: "An iceburg floats in the ocean, with a white, snow-covered landmass nearby."},
+        trueAnswer: "c"},
     {id: 5, 
         question: "5) Which of the following is both a city and the \nname of a country (that currently exists)?", 
         answerA: "Singapore", 
         answerB: "Rome", 
         answerC: "Buenos Aires", 
         answerD: "Quebec", 
-        trueAnswer: "a",
-        picture: "C:\Users\Ian\projects\quiz_app\images\rome.jpg",
-        pictureAlt: "Landscape of a city during twilight. A river flows in front of the city."},
+        trueAnswer: "a"},
 ];
 
-const SCOREBOARD = {
+/*
+Tracks the user's score, the total number of questions (possible), and what question the user is currently on. 
+currQuestion 0 means the user is looking at the intro or outro page.
+*/
+const SCOREBOARD = { 
   score: 0,
   possible: 5,
   currQuestion: 0,
 }
 
+//This function takes an html element and toggles the 'hidden' class on or off.
 function toggleHidden(toHide) {
     toHide.toggleClass('hidden');
 }
 
+//This function is called to turn the intro page on and off.
 function renderIntroPage() {
     toggleHidden($('.js-intro-form'));
 }
 
+//This function is called to bring the user to the next question.
 function nextQuestion() {
     SCOREBOARD.currQuestion++;
 }
 
+//This function is called to find the quiz info for the current question.
 function findQuestion() {
     let question = null;
     for (let i = 0; i < QUIZ.length; i++) {
@@ -74,6 +73,10 @@ function findQuestion() {
     return question;
 }
 
+/*
+This function is called to add elements to the html file and render the question and its answers. Additionally, this also renders
+the scoreboard for the user to see.
+*/
 function questionPageContents() {
     let newQuestion = findQuestion();
     $('.results').html(
@@ -96,6 +99,10 @@ function questionPageContents() {
     )
 }
 
+/*
+This function is called when the user clicks the start button on the intro page. It hides the intro page and allows the
+question and scoreboard to be rendered.
+*/
 function startQuiz() {
     $('.js-start-button').click(function() {
         event.preventDefault();
@@ -107,6 +114,12 @@ function startQuiz() {
     });      
 }
 
+/*
+This function is called when a user clicks the submit button underneath a question. If the user did not select a radio, a
+message will appear asking the user to do so. If the selected radio is the correct answer, they will receive a message in
+green text notifying them. Finally, if the answer is incorrect, red text will appear telling them that the given answer is
+wrong, as well as showing the correct answer. In the final two cases, the submit button is replaced with a continue button.
+*/
 function handleAnswerSubmit() {
     $('.js-question-form').on('click', '.js-submit-answer', event => {
         event.preventDefault();
@@ -151,6 +164,8 @@ function handleAnswerSubmit() {
     })
 }
 
+
+//Once all questions have been completed, this function is called to hide the question form and results and to reveal the outro page.
 function renderOutroPage() {
     toggleHidden($('.js-question-form'));
     toggleHidden($('.js-results'));
@@ -165,6 +180,10 @@ function renderOutroPage() {
         `);
 }
 
+/*
+This function is called when a continue button has been clicked. It checks to see if all answers have been completed or not. If they
+have, a function is called to render the outro page. If not, a function is called to render the next question.
+*/
 function handleContinue() {
     $('.js-question-form').on('click', '.js-continue-button', event => {
         event.preventDefault();
@@ -179,6 +198,7 @@ function handleContinue() {
     });
 }
 
+//This function is called by the user clicking the retry button. The scoreboard is completely reset and the user is shown the intro page.
 function handleRetry() {
     $('.js-outro-form').on('click', '.js-retake-quiz', event => {
         event.preventDefault();
@@ -190,6 +210,9 @@ function handleRetry() {
     });
 }
 
+/*
+This function sets up all event listeners, as well as calling the function that initializes the intro page.
+*/
 function handleQuiz() {
     renderIntroPage();
     startQuiz();
